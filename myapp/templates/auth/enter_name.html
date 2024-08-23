@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/auth/enter_name.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Group Name</title>
+</head>
+<body>
+
+    <div class="intro">
+        <div class="container">
+            <div class="intro__inner">
+                <h1 class="intro-text">Enter your username</h1>
+
+                <!-- Form to submit group name -->
+                <form method="POST" action="{% url 'enter_name' %}">
+                    {% csrf_token %}
+                    <input type="text" id="usernameInput" name="group_name" class="username-input" placeholder="Group name" required>
+
+                    <button id="confirmButton" style="padding: 18px 100px;" class="intro-button" disabled>Confirm group name</button>
+                </form>
+
+                <a href="{% url 'login' %}">
+                    <button class="intro-button">Back</button>
+                </a>
+            </div>
+        </div>
+   </div>
+
+   <footer class="footer">
+        <div class="container">
+            <img class="intro-image" src="{% static 'images/start_image.jpg' %}" alt="Description of the image">
+        </div>
+    </footer>
+
+    <!-- Modal Window for Duplicate Group Name -->
+    <div id="groupTakenModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <p>Group name already exists. Please choose another name.</p>
+        </div>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById('usernameInput');
+        const confirmButton = document.getElementById('confirmButton');
+
+        usernameInput.addEventListener('input', () => {
+            if (usernameInput.value.trim() === '') {
+                confirmButton.disabled = true; // Disable the button if the input is empty
+                confirmButton.style.backgroundColor = '#7f7f7f'; // Gray background for disabled button
+                confirmButton.style.cursor = 'not-allowed'; // Change cursor to indicate disabled state
+            } else {
+                confirmButton.disabled = false; // Enable the button if there is input
+                confirmButton.style.backgroundColor = 'linear-gradient(135deg, #1f1f1f, #363636)'; // Original gradient
+                confirmButton.style.cursor = 'pointer'; // Change cursor back to normal
+            }
+        });
+
+        // Show modal if group name is taken
+        {% if group_name_taken %}
+        const modal = document.getElementById('groupTakenModal');
+        modal.style.display = 'block';
+        {% endif %}
+
+        // Close modal when the close button is clicked
+        const closeModalButton = document.getElementById('closeModal');
+        closeModalButton.addEventListener('click', () => {
+            document.getElementById('groupTakenModal').style.display = 'none';
+        });
+    </script>
+
+    <style>
+        /* Modal styles */
+        .modal {
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            border-radius: 20px;
+            background-color: rgba(216, 78, 37, 0.8);
+            margin: 2% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            color: black;
+        }
+
+        .close-button {
+            color: black;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+</body>
+</html>
