@@ -7,9 +7,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from pymongo.errors import DuplicateKeyError
 import re
 import uuid
-
+from django.utils import timezone
 db = settings.MONGO_DB
 users_collection = settings.MONGO_DB['users']
+groups_collection = settings.MONGO_DB['groups']
 
 def home(request):
     return render(request, 'auth/home.html')
@@ -19,21 +20,6 @@ class CustomUser:
         self.id = id
         self.username = username
         self.is_authenticated = True
-
-def validate_password(password):
-    if len(password) < 8:
-        return False, "Password must be at least 8 characters long"
-    if not re.search(r'[A-Z]', password):
-        return False, "Password must contain at least one uppercase letter"
-    if not re.search(r'[a-z]', password):
-        return False, "Password must contain at least one lowercase letter"
-    if not re.search(r'[0-9]', password):
-        return False, "Password must contain at least one digit"
-    return True, ""
-
-def get_mac_address():
-    mac = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
-    return mac
 
 def login_view(request):
     if request.method == 'POST':
@@ -60,57 +46,33 @@ def login_view(request):
 
     return render(request, 'auth/login.html')
 
-def reg_view(request):
+def enter_name_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('password2')
+        group_name = request.POST.get('group_name').strip()
 
-        if not username or not email or not password or not confirm_password:
-            messages.error(request, "All fields are required")
-            return redirect('register')
+        if not group_name:
+            messages.error(request, 'Group name cannot be empty')
+            return redirect('enter_name')
 
-        if len(username) < 5:
-            messages.error(request, "Username must be at least 5 characters long")
-            return redirect('register')
+        # Check if the group name already exists
+        if groups_collection.find_one({'name': group_name}):
+            return render(request, 'auth/enter_name.html', {'group_name_taken': True})
 
-        if password != confirm_password:
-            messages.error(request, "Passwords do not match")
-            return redirect('register')
+        # Create a new group document
+        new_group = {
+            'name': group_name,
+            'created_at': timezone.now(),
+        }
 
-        is_valid, error_msg = validate_password(password)
-        if not is_valid:
-            messages.error(request, error_msg)
-            return redirect('register')
+        groups_collection.insert_one(new_group)
 
-        if users_collection.find_one({'username': username}):
-            messages.error(request, "Username already exists")
-            return redirect('register')
+        messages.success(request, 'Group created successfully')
+        return redirect('login')
 
-        if users_collection.find_one({'email': email}):
-            messages.error(request, "Email already exists")
-            return redirect('register')
+    return render(request, 'auth/enter_name.html')
 
-        mac_address = get_mac_address()
 
-        try:
-            users_collection.insert_one({
-                'username': username,
-                'email': email,
-                'password': password,
-                'mac_address': mac_address,
-                'auth_status': 'unauthorized'
-            })
-            messages.success(request, "Registration successful")
-            return redirect('home')
-        except DuplicateKeyError:
-            messages.error(request, "Username or email already exists")
-            return redirect('register')
-
-    return render(request, 'auth/reg.html')
-
-def logout_view(request):
-    response = redirect('home')
-    response.delete_cookie('access_token')
-    return response
+def group_list_view(request):
+    # Retrieve all groups from the database
+    groups = list(groups_collection.find({}))
+    return render(request, 'auth/group_list.html', {'groups': groups})

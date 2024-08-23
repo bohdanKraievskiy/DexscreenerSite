@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/auth/group_list.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group List</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">List of Groups</h1>
+
+        <ul class="group-list">
+            {% for group in groups %}
+                <li class="group-item">
+                    <h2>{{ group.name }}</h2>
+                    <p>Created at: {{ group.created_at|date:"Y-m-d" }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'login' %}">
+            <button class="intro-button">Back to Home</button>
+        </a>
+    </div>
+
+</body>
+</html>
