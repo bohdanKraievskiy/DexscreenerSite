@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/aidjango.iml" filepath="$PROJECT_DIR$/.idea/aidjango.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DexscreenerSiteGitVersion.iml" filepath="$PROJECT_DIR$/.idea/DexscreenerSiteGitVersion.iml" />
     </modules>
   </component>
 </project>
