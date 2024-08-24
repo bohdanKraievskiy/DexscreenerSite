@@ -14,21 +14,47 @@
         <div class="container">
             <div class="header__inner">
                 <a href="https://t.me/enaticommunity"><img class="header-icon" src="{% static 'images/telegram_icon.png' %}" alt="Icon 1"></a>
-                <a href="https://x.com/enatixyz"><img class="header-icon" src="../../static/images/twitter_icon.png" alt="Icon 2"></a>
+                    <a href="https://x.com/enatixyz"><img class="header-icon" src="{% static 'images/twitter_icon.png' %}" alt="Icon 2"></a>
             </div>
         </div>
     </header>
-    
+
     <div class="intro">
         <div class="container">
+            <header class="header_text"
+            style="    width: 100%;
+        position: relative;
+        background-color: black;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        font-size: 40px;
+        text-align: center;
+        font-weight: 900"
+            >
+                Waiting List
+            </header>
             <div class="intro__inner">
-                <img class="intro-image" src="{% static 'images/start_image.jpg' %}" alt="Description of the image">
+                <img style="width: 40%;height: auto" class="intro-image" src="{% static 'images/spinny.gif' %}" alt="Description of the image">
+                 <header class="header_text"
+            style="    width: 100%;
+        position: relative;
+        background-color: black;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-size: 20px;
+        text-align: center;
+        font-weight: 900"
+            >
+                The Wait Won't Be Long
+            </header>
                 <a href="{% url 'enter_name' %}" >
-                    <button class="intro-button">Add Group</button>
+                    <button style="width: 300px" class="intro-button">Add Group</button>
                 </a>
-                 <a href="{% url 'group_list' %}" style="margin-top: 20px">
-                    <button class="intro-button">View All Groups</button>
-                </a>
+
             </div>
         </div>
    </div>

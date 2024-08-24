@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-ahmz7&(t686w7kit=353kfr2@v9#yc)2sk0v0a$f^t+vfzk#cn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["enati.xyz"]
+ALLOWED_HOSTS = ["enati.xyz",'127.0.0.1','127.0.0.1:8000']
 
 
 # Application definition

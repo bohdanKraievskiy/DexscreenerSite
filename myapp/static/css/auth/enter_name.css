@@ -97,8 +97,7 @@ h1,h2,h3,h4,h5,h6 {
     box-shadow: 0 8px 0 #171717; /* Deep shadow for a 3D effect */
     transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
     cursor: pointer;
-    width: 100%; /* Full width */
-    max-width: 500px; /* Set a maximum width to avoid being too wide */
+    width: 300px; /* Full width */
 
     margin-top: 40px;
 }

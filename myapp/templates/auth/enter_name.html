@@ -20,12 +20,22 @@
                     {% csrf_token %}
                     <input type="text" id="usernameInput" name="group_name" class="username-input" placeholder="Group name" required>
 
-                    <button id="confirmButton" style="padding: 18px 100px;" class="intro-button" disabled>Confirm group name</button>
+                    <button style="width: 400px;padding: 18px 0;" id="confirmButton"  class="intro-button">Add group</button>
                 </form>
 
-                <a href="{% url 'login' %}">
-                    <button class="intro-button">Back</button>
+
+                  <a href="{% url 'group_list' %}" >
+                    <button style="width: 400px" class="intro-button">Currently pre-registered</button>
                 </a>
+
+                <a href="{% url 'login' %}">
+                    <button style="width: 400px" class="intro-button">Back</button>
+                </a>
+
+
+
+
+
             </div>
         </div>
    </div>
