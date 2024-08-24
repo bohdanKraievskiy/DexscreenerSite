@@ -54,13 +54,17 @@ def enter_name_view(request):
             messages.error(request, 'Group name cannot be empty')
             return redirect('enter_name')
 
-        # Check if the group name already exists
-        if groups_collection.find_one({'name': group_name}):
+        # Приводим имя группы к нижнему регистру для проверки дубликатов
+        group_name_lower = group_name.lower()
+
+        # Проверяем, существует ли уже группа с таким именем (независимо от регистра)
+        if groups_collection.find_one({'name_lower': group_name_lower}):
             return render(request, 'auth/enter_name.html', {'group_name_taken': True})
 
-        # Create a new group document
+        # Создаем новый документ группы с полем для имени в нижнем регистре
         new_group = {
             'name': group_name,
+            'name_lower': group_name_lower,
             'created_at': timezone.now(),
         }
 
@@ -70,6 +74,7 @@ def enter_name_view(request):
         return redirect('login')
 
     return render(request, 'auth/enter_name.html')
+
 
 
 def group_list_view(request):
