@@ -4,25 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/auth/group_list.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap" rel="stylesheet">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group List</title>
 </head>
-<body>
+<body style="font-family: 'New Amsterdam', sans-serif;">
 
     <div class="container">
         <h1 class="title">Currently Registered</h1>
 
         <ul class="group-list">
             {% for group in groups %}
-                <li class="group-item" style="margin-bottom: -10px">
+                <li class="group-item" style="margin-bottom: -10px;font-family: 'New Amsterdam', sans-serif;">
                     <h2>{{ group.name }}</h2>
                 </li>
             {% endfor %}
         </ul>
 
         <a href="{% url 'login' %}">
-            <button class="intro-button">Back to Home</button>
+            <button style="font-family: 'New Amsterdam', sans-serif;" class="intro-button">HOME</button>
         </a>
     </div>
 

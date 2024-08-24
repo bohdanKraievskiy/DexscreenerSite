@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/auth/enter_name.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Group Name</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="">Enter Group Name</title>
 </head>
-<body>
+<body style="font-family: 'New Amsterdam', sans-serif;">
 
     <div class="intro">
         <div class="container">
@@ -18,18 +20,18 @@
                 <!-- Form to submit group name -->
                 <form method="POST" action="{% url 'enter_name' %}">
                     {% csrf_token %}
-                    <input type="text" id="usernameInput" name="group_name" class="username-input" placeholder="Group name" required>
+                    <input type="text" id="usernameInput" name="group_name" class="username-input" style="font-family: 'New Amsterdam', sans-serif;" placeholder="Group name" required>
 
-                    <button style="width: 400px;padding: 18px 0;" id="confirmButton"  class="intro-button">Add group</button>
+                    <button style="width: 400px;padding: 18px 0; font-family: 'New Amsterdam', sans-serif;" id="confirmButton"  class="intro-button">Add group</button>
                 </form>
 
 
                   <a href="{% url 'group_list' %}" >
-                    <button style="width: 400px" class="intro-button">Currently pre-registered</button>
+                    <button style="width: 400px;font-family: 'New Amsterdam', sans-serif;" class="intro-button">Currently pre-registered</button>
                 </a>
 
                 <a href="{% url 'login' %}">
-                    <button style="width: 400px" class="intro-button">Back</button>
+                    <button style="width: 400px;font-family: 'New Amsterdam', sans-serif;" class="intro-button">HOME</button>
                 </a>
 
 

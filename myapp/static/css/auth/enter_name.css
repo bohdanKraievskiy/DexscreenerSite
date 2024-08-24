@@ -98,7 +98,7 @@ h1,h2,h3,h4,h5,h6 {
     transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
     cursor: pointer;
     width: 300px; /* Full width */
-
+    font-family: "New Amsterdam", sans-serif;
     margin-top: 40px;
 }
 
