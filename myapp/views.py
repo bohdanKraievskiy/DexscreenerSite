@@ -81,3 +81,6 @@ def group_list_view(request):
     # Retrieve all groups from the database
     groups = list(groups_collection.find({}))
     return render(request, 'auth/group_list.html', {'groups': groups})
+
+def main_view(request):
+    return render(request, 'auth/main.html')
